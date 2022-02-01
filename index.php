@@ -7,13 +7,11 @@
     <?php include "partials/nav.php" ?>
     <?php include "partials/sidebar.php" ?>
     <div class="content-wrapper">
-      <?php include "partials/content.php" ?>
+      <?php include "partials/routes.php" ?>
     </div>
     <?php include "partials/control.php" ?>
     <?php include "partials/footer.php" ?>
-
   </div>
-
 </body>
 
 </html>
