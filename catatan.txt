@@ -1,0 +1,25 @@
+isi tbody coding lama
+<?php
+                        $query = mysqli_query($con, "SELECT * FROM lokasi");
+                        $no = 1;
+                        while ($data = mysqli_fetch_array($query)) {
+                        ?>
+                          <tr>
+                              <td><?php echo $no ?></td>
+                              <td><?php echo $data['nama_lokasi']; ?></td>
+                          </tr>
+                      <?php
+                            $no++;
+                        }
+                        ?>
+
+
+<?php
+$databaseHost = "localhost";
+$databaseName = "praktikum_presensi_penggajian";
+$databaseUsername = "root";
+$databasePassword = "";
+$con = mysqli_connect("$databaseHost", "$databaseUsername", "$databasePassword", "$databaseName");
+if (mysqli_connect_errno()) {
+  echo "<h1>Koneksi database error : " . mysqli_connect_errno() . "</h1>";
+}
