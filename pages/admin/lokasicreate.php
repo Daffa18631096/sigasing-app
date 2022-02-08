@@ -3,6 +3,7 @@ if (isset($_POST['button_create'])) {
 
     $database = new Database();
     $db = $database->getConnection();
+    
     $validateSql = "INSERT INTO lokasi SET nama_lokasi = '" . $_POST['nama_lokasi'] . "'";
     $stmt = $db->prepare($validateSql);
     $stmt->bindParam(1, $_POST['nama_lokasi']);
