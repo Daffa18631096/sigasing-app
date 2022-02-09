@@ -3,7 +3,7 @@ if (isset($_POST['button_create'])) {
 
     $database = new Database();
     $db = $database->getConnection();
-    
+
     $validateSql = "INSERT INTO lokasi SET nama_lokasi = '" . $_POST['nama_lokasi'] . "'";
     $stmt = $db->prepare($validateSql);
     $stmt->bindParam(1, $_POST['nama_lokasi']);
@@ -43,7 +43,7 @@ if (isset($_POST['button_create'])) {
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="?page=home">Home</a></li>
-                    <li class="breadcrumb-item"><a href="?page=lokasiread">Lokasi</li>
+                    <li class="breadcrumb-item"><a href="?page=lokasiread">Lokasi</a></li>
                     <li class="breadcrumb-item active">Tambah Data</li>
                 </ol>
             </div>
