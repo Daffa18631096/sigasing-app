@@ -1,50 +1,35 @@
 <?php
-if (isset($_POST['button_update'])) {
+if (isset($_GET['id'])) {
 
+    include_once "database/database.php";
     $database = new Database();
     $db = $database->getConnection();
+
+
+    if (isset($_POST['button_update'])) {
+
+        $updateSql = "UPDATE lokasi SET nama_lokasi = ? WHERE id = ?";
+        $stmt = $db->prepare($updateSql);
+        $stmt->bindParam(1, $_POST['nama_lokasi']);
+        $stmt->bindParam(2, $_POST['id']);
+        if ($stmt->execute()) {
+            $_SESSION['hasil'] = true;
+            $_SESSION['pesan'] = "berhasil simpan data";
+        } else {
+            $_SESSION['hasil'] = false;
+            $_SESSION['pesan'] = "gagal simpan data";
+        }
+        echo "<meta http-equiv='refresh' content='0;url=?page=lokasiread'>";
+    }
 
     $id = $_GET['id'];
     $findSql = "SELECT * FROM lokasi WHERE id = ?";
     $stmt = $db->prepare($findSql);
-    $stmt->bindParam(1, $_POST['nama_lokasi']);
+    $stmt->bindParam(1, $_GET['id']);
     $stmt->execute();
     $row = $stmt->fetch();
     if (isset($row['id'])) {
-        if (isset($_POST['button_update'])) {
-
-            $database = new Database();
-            $db = $database->getConnection();
-
-            $validateSql = "SELECT * FROM lokasi WHERE nama_lokasi = ? AND id != ?";
-            $stmt = $db->prepare($validateSql);
-            $stmt->bindParam(1, $_POST['nama_lokasi']);
-            $stmt->bindParam(2, $_POST['id']);
-            $stmt->execute();
-            if ($stmt->rowCount() > 0) {
-?>
-                <div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                    <h5><i class="icon fas fa-ban"></i>gagal</h5>
-                    Nama lokasi sama sudah ada
-                </div>
-        <?php
-            } else {
-                $updateSql = "UPDATE lokasi SET nama_lokasi = ? WHERE id = ?";
-                $stmt = $db->prepare($updateSql);
-                $stmt->bindParam(1, $_POST['nama_lokasi']);
-                $stmt->bindParam(2, $_POST['id']);
-                if ($stmt->execute()) {
-                    $_SESSION['hasil'] = true;
-                    $_SESSION['pesan'] = "berhasil simpan data";
-                } else {
-                    $_SESSION['hasil'] = false;
-                    $_SESSION['pesan'] = "gagal simpan data";
-                }
-                echo "<meta http-equiv='refresh' content='0;url=?page=lokasiread'>";
-            }
-        }
-        ?>
+    ?>
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb2">
@@ -54,7 +39,7 @@ if (isset($_POST['button_update'])) {
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="?page=home">Home</a></li>
-                            <li class="breadcrumb-item"><a href="?page=lokasiread">Lokasi</li>
+                            <li class="breadcrumb-item"><a href="?page=lokasiread">Lokasi</a></li>
                             <li class="breadcrumb-item active">Ubah Data</li>
                         </ol>
                     </div>
@@ -93,3 +78,5 @@ if (isset($_POST['button_update'])) {
 } else {
     echo "<meta http-equiv='refresh' content='0;url=?page=lokasiread'>";
 }
+include_once "partials/scripts.php"
+?>

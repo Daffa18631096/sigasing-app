@@ -10,9 +10,10 @@ if (isset($_GET['id'])) {
     $stmt->bindParam(1, $_GET['id']);
     if ($stmt->execute()) {
         $_SESSION['hasil'] = true;
+        $_SESSION['pesan'] = "berhasil hapus data";
     } else {
-        $_SESSION['hasil'] = false;
+        $_SESSION['hasil'] = true;
+        $_SESSION['pesan'] = "gagal hapus data";
     }
-} 
+}
 echo "<meta http-equiv='refresh' content='0;url=?page=lokasiread'>";
-?>
